@@ -1,0 +1,20 @@
+baseURL: https://stephentuso.com/
+languageCode: en-us
+title: Stephen Tuso
+theme: PaperMod
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+disqusShortname: 'stephentuso'
+
+params:
+    comments: true
+    homeInfoParams:
+        Title: Hello there
+        Content: This is where 
+
+    socialIcons: # optional
+        - name: "github"
+          url: "https://github.com/stephentuso"
