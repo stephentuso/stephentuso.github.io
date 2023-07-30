@@ -1,7 +1,6 @@
 ---
 title: "How to make this"
-date: 2023-03-02T23:49:21-05:00
-draft: true
+date: 2023-07-30
 tags:
   - Web
   - DevOps
@@ -20,7 +19,7 @@ static site generator, but it makes it hard to change themes later if you want t
 
 ## How
 
-### Setup
+### Setup repo
 
 Install hugo - on MacOS it's just:
 
@@ -41,19 +40,100 @@ git submodule add --depth=1 https://github.com/stephentuso/hugo-PaperMod.git the
 There used to be a flag on `hugo new site` to choose config format, but it seems to have been taken out. I prefer YAML over the default TOML, so delete `hugo.toml` and add the following in a new file `hugo.yaml`, with the appropriate values:
 
 ```yaml
-baseURL: https://my-site.com/
+baseURL: https://yourusername.github.io/
 languageCode: en-us
 title: My Site
 theme: PaperMod
 ```
 
-### Github Actions
+### Deploy
 
+We'll be using GitHub Actions to deploy the site to GitHub Pages. I'm using Pages because it's free for public repos, and Actions because it integrates with Pages easily (and is also free). Assuming this is your user site - make a repo on your GitHub called `yourusername.github.io`, and add it as a remote.
 
+Now for the Actions config, add the following to `.github/workflows/hugo.yml`:
 
-### Workflow
+```yml
+name: Deploy Hugo site to Pages
 
-Now you can start the dev server:
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+# Default to bash
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.115.4
+    steps:
+      - name: Install Hugo CLI
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+      - name: Install Dart Sass
+        run: sudo snap install dart-sass
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v3
+      - name: Install Node.js dependencies
+        run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+      - name: Build with Hugo
+        env:
+          # For maximum backward compatibility with Hugo modules
+          HUGO_ENVIRONMENT: production
+          HUGO_ENV: production
+        run: |
+          hugo \
+            --minify \
+            --baseURL "${{ steps.pages.outputs.base_url }}/"
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./public
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+```
+
+That was just the suggested workflow from GitHub, I only had to update the Hugo version. It's somewhat self explanatory, but it just installs Hugo and its dependencies, builds the site, and pushes to Pages.
+
+### Content
+
+Now we're ready to actually work on the site - start the dev server and open your browser to [http://localhost:1313](http://localhost:1313)
 
 ```sh
 hugo serve -D
@@ -77,4 +157,9 @@ draft: true
 
 Now you can write your post beneath that, and remove `draft: true` when you're ready to publish it. My only gripe with that is that there doesn't seem to be a built in way to update the date to match the publish time instead of when you created the file. There is a variable `publishDate` that you can add, it just isn't automated.
 
+The full list of variables are [here](https://gohugo.io/content-management/front-matter/#front-matter-variables), but some useful ones are:
+ - `tags`: Array of tags that will show up at the bottom, and let viewers find related posts
+ - `url`: Change the path of a post, could be used if you want to organize content in folders but don't want that to be reflected in the URL. [More here](https://gohugo.io/content-management/urls)
+ - `publishDate`: If this is set to the future, the post won't be published until then
 
+Once you're ready to publish, just `git commit` and `git push` to the `main` branch and the site will be deployed by the Action we set up earlier! You'll be able to view it at https://\<username\>.github.io
