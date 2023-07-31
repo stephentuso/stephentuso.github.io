@@ -21,11 +21,11 @@ settled on [Hugo](https://gohugo.io/) with the
 first time I've used Hugo and so far it seems nice, but I don't like how the
 content can be very coupled to some themes. That might be necessary to get
 something unique out of a generic static site generator, but it makes it hard to
-change themes later if you want to. I don't really need something unique though,
-I just want to write posts in markdown and have them show up on the internet. I
-chose PaperMod because even though it does have some theme-specific features, I
-don't have to use those, and it's a simple, clean base. I wanted to make some
-small tweaks, so I went ahead and forked it.
+change themes later. I don't really need something unique though, I just want to
+write posts in markdown and have them show up on the internet. I chose PaperMod
+because even though it does have some theme-specific features, I don't have to
+use those, and it's a simple, clean base. I wanted to make some small tweaks, so
+I went ahead and forked it.
 
 ## How
 
