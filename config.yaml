@@ -6,17 +6,20 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+  highlight:
+    noClasses: false
 
 disqusShortname: stephentuso
 googleAnalytics: G-WE40RSXBYG
 
 params:
   comments: true
+  ShowCodeCopyButtons: true
   homeInfoParams:
     Title: Hello there
     Content:
-      These posts are mostly instructions for technical things that I want to
-      reference later, but maybe they'll be useful to someone else out there
+      These posts will mostly be notes and instructions for things that I want
+      to reference later, but maybe they'll be useful to someone else out there
       too.
 
   socialIcons:

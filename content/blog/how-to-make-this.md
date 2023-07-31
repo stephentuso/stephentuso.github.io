@@ -35,13 +35,13 @@ I went ahead and forked it.
 
 Install hugo - on MacOS it's just:
 
-```sh
+```txt
 brew install hugo
 ```
 
 Let's set up a new site and add the theme.
 
-```sh
+```txt
 hugo new site my-site
 cd my-site
 git init
@@ -56,7 +56,7 @@ to have been taken out. I prefer YAML over the default TOML, so delete
 `hugo.toml` and add the following in a new file `hugo.yaml`, with the
 appropriate values:
 
-```yml
+```yaml
 baseURL: https://<yourusername>.github.io/
 languageCode: en-us
 title: My Site
@@ -72,7 +72,7 @@ Pages easily (and is also free). Make a repo on your GitHub called
 
 Now for the Actions config, add the following to `.github/workflows/hugo.yml`:
 
-```yml
+```yaml
 name: Deploy Hugo site to Pages
 
 on:
@@ -174,7 +174,7 @@ hugo new content blog/first-post.md
 This will add a markdown page at `content/blog/first-post.md` with some
 frontmatter like this:
 
-```;
+```txt
 ---
 title: "First Post"
 date: 2023-07-30T14:25:24-04:00
