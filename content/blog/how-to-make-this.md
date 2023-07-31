@@ -194,9 +194,11 @@ but some useful ones are:
 
 - `tags`: Array of tags that will show up at the bottom, and let viewers find
   related posts
-- `url`: Change the path of a post, could be used if you want to organize
-  content in folders but don't want that to be reflected in the URL.
+- `slug` and `url`: Change the path of a post, useful if you want the post URL
+  to differ from the title.
   [More here](https://gohugo.io/content-management/urls)
+- `aliases`: If you update a page URL, you can add the old URL as an alias to
+  redirect to the new one
 - `publishDate`: If this is set to the future, the post won't be published until
   then
 
