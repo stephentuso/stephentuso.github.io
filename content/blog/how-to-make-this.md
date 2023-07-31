@@ -1,5 +1,6 @@
 ---
 title: "How to make this"
+summary: Guide for creating a blog with Hugo and GitHub Pages
 date: 2023-07-30
 tags:
   - Web
@@ -40,7 +41,7 @@ git submodule add --depth=1 https://github.com/stephentuso/hugo-PaperMod.git the
 There used to be a flag on `hugo new site` to choose config format, but it seems to have been taken out. I prefer YAML over the default TOML, so delete `hugo.toml` and add the following in a new file `hugo.yaml`, with the appropriate values:
 
 ```yaml
-baseURL: https://yourusername.github.io/
+baseURL: https://<yourusername>.github.io/
 languageCode: en-us
 title: My Site
 theme: PaperMod
@@ -48,7 +49,7 @@ theme: PaperMod
 
 ### Deploy
 
-We'll be using GitHub Actions to deploy the site to GitHub Pages. I'm using Pages because it's free for public repos, and Actions because it integrates with Pages easily (and is also free). Assuming this is your user site - make a repo on your GitHub called `yourusername.github.io`, and add it as a remote.
+We'll be using GitHub Actions to deploy the site to GitHub Pages. I'm using Pages because it's free for public repos, and Actions because it integrates with Pages easily (and is also free). Make a repo on your GitHub called `<yourusername>.github.io`, and add it as a remote to your local repo.
 
 Now for the Actions config, add the following to `.github/workflows/hugo.yml`:
 
@@ -129,11 +130,11 @@ jobs:
         uses: actions/deploy-pages@v2
 ```
 
-That was just the suggested workflow from GitHub, I only had to update the Hugo version. It's somewhat self explanatory, but it just installs Hugo and its dependencies, builds the site, and pushes to Pages.
+That was just the suggested workflow from GitHub, I only had to update the Hugo version, which you may need to do as well. It's somewhat self explanatory, but it just installs Hugo and its dependencies, builds the site, and pushes to Pages.
 
 ### Content
 
-Now we're ready to actually work on the site - start the dev server and open your browser to [http://localhost:1313](http://localhost:1313)
+Now we're ready to actually work on the site. Start the dev server and open your browser to [http://localhost:1313](http://localhost:1313)
 
 ```sh
 hugo serve -D
@@ -163,3 +164,5 @@ The full list of variables are [here](https://gohugo.io/content-management/front
  - `publishDate`: If this is set to the future, the post won't be published until then
 
 Once you're ready to publish, just `git commit` and `git push` to the `main` branch and the site will be deployed by the Action we set up earlier! You'll be able to view it at https://\<username\>.github.io
+
+If you have questions about anything, the code [is here](https://github.com/stephentuso/stephentuso.github.io), or leave a comment below!
