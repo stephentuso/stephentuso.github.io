@@ -1,6 +1,9 @@
 ---
-title: "How to make this"
+title: "How to make this site"
 summary: Guide for creating a blog with Hugo and GitHub Pages
+slug: hugo-github-pages-blog-tutorial
+aliases:
+  - /blog/how-to-make-this
 date: 2023-07-30
 tags:
   - Web
@@ -25,6 +28,8 @@ don't have to use those, and it's a simple, clean base. I wanted to make some
 small tweaks, so I went ahead and forked it.
 
 ## How
+
+> You should be familiar with git and the command line to follow this
 
 ### Setup repo
 
@@ -51,7 +56,7 @@ to have been taken out. I prefer YAML over the default TOML, so delete
 `hugo.toml` and add the following in a new file `hugo.yaml`, with the
 appropriate values:
 
-```yaml
+```yml
 baseURL: https://<yourusername>.github.io/
 languageCode: en-us
 title: My Site
