@@ -25,7 +25,7 @@ change themes later. I don't really need something unique though, I just want to
 write posts in markdown and have them show up on the internet. I chose PaperMod
 because even though it does have some theme-specific features, I don't have to
 use those, and it's a simple, clean base. I wanted to make some small tweaks, so
-I went ahead and forked it.
+I went ahead and [forked it](https://github.com/stephentuso/hugo-PaperMod).
 
 ## How
 
