@@ -2,4 +2,4 @@
 
 [stephentuso.com](https://stephentuso.com)
 
-[Tutorial]()
+[Tutorial](https://stephentuso.com/blog/hugo-github-pages-blog-tutorial)
