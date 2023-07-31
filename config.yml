@@ -7,16 +7,17 @@ markup:
     renderer:
       unsafe: true
 
-disqusShortname: 'stephentuso'
+disqusShortname: "stephentuso"
 
 params:
-    comments: true
-    homeInfoParams:
-        Title: Hello there
-        Content: These posts are mostly instructions for technical things
-          that I want to reference later, but maybe they'll be useful to someone else
-          out there too.
+  comments: true
+  homeInfoParams:
+    Title: Hello there
+    Content:
+      These posts are mostly instructions for technical things that I want to
+      reference later, but maybe they'll be useful to someone else out there
+      too.
 
-    socialIcons: # optional
-        - name: "github"
-          url: "https://github.com/stephentuso"
+  socialIcons: # optional
+    - name: "github"
+      url: "https://github.com/stephentuso"

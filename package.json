@@ -1,0 +1,21 @@
+{
+  "name": "stephentuso.com",
+  "version": "1.0.0",
+  "description": "personal website",
+  "main": "index.js",
+  "repository": "git@github.com:stephentuso/stephentuso.github.io.git",
+  "author": "stephentuso",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
+    "prettier": "^3.0.0"
+  },
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
+}

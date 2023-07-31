@@ -8,15 +8,21 @@ tags:
   - Tutorial
 ---
 
-As is tradition, the first post must explain how the blog
-was set up.
+As is tradition, the first post must explain how the blog was set up.
 
 ## What and Why
 
-I wanted a static site for speed, simplicity, and cost. After searching around I settled on [Hugo](https://gohugo.io/) with the
-[PaperMod](https://github.com/adityatelange/hugo-PaperMod) theme. This
-is the first time I've used Hugo and so far it seems nice, but I don't like how the content can be very coupled to some themes. That might be necessary to get something unique out of a generic
-static site generator, but it makes it hard to change themes later if you want to. I don't really need something unique though, I just want to write posts in markdown and have them show up on the internet. I chose PaperMod because even though it does have some theme-specific features, I don't have to use those, and it's a simple, clean base. I wanted to make some small tweaks, so I went ahead and forked it.
+I wanted a static site for speed, simplicity, and cost. After searching around I
+settled on [Hugo](https://gohugo.io/) with the
+[PaperMod](https://github.com/adityatelange/hugo-PaperMod) theme. This is the
+first time I've used Hugo and so far it seems nice, but I don't like how the
+content can be very coupled to some themes. That might be necessary to get
+something unique out of a generic static site generator, but it makes it hard to
+change themes later if you want to. I don't really need something unique though,
+I just want to write posts in markdown and have them show up on the internet. I
+chose PaperMod because even though it does have some theme-specific features, I
+don't have to use those, and it's a simple, clean base. I wanted to make some
+small tweaks, so I went ahead and forked it.
 
 ## How
 
@@ -36,9 +42,14 @@ cd my-site
 git init
 git submodule add --depth=1 https://github.com/stephentuso/hugo-PaperMod.git themes/PaperMod
 ```
-> Use the SSH url for the theme if you have your own fork, so that you can push your changes
 
-There used to be a flag on `hugo new site` to choose config format, but it seems to have been taken out. I prefer YAML over the default TOML, so delete `hugo.toml` and add the following in a new file `hugo.yaml`, with the appropriate values:
+> Use the SSH url for the theme if you have your own fork, so that you can push
+> your changes
+
+There used to be a flag on `hugo new site` to choose config format, but it seems
+to have been taken out. I prefer YAML over the default TOML, so delete
+`hugo.toml` and add the following in a new file `hugo.yaml`, with the
+appropriate values:
 
 ```yaml
 baseURL: https://<yourusername>.github.io/
@@ -49,7 +60,10 @@ theme: PaperMod
 
 ### Deploy
 
-We'll be using GitHub Actions to deploy the site to GitHub Pages. I'm using Pages because it's free for public repos, and Actions because it integrates with Pages easily (and is also free). Make a repo on your GitHub called `<yourusername>.github.io`, and add it as a remote to your local repo.
+We'll be using GitHub Actions to deploy the site to GitHub Pages. I'm using
+Pages because it's free for public repos, and Actions because it integrates with
+Pages easily (and is also free). Make a repo on your GitHub called
+`<yourusername>.github.io`, and add it as a remote to your local repo.
 
 Now for the Actions config, add the following to `.github/workflows/hugo.yml`:
 
@@ -102,7 +116,9 @@ jobs:
         id: pages
         uses: actions/configure-pages@v3
       - name: Install Node.js dependencies
-        run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+        run:
+          "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci ||
+          true"
       - name: Build with Hugo
         env:
           # For maximum backward compatibility with Hugo modules
@@ -130,11 +146,15 @@ jobs:
         uses: actions/deploy-pages@v2
 ```
 
-That was just the suggested workflow from GitHub, I only had to update the Hugo version, which you may need to do as well. It's somewhat self explanatory, but it just installs Hugo and its dependencies, builds the site, and pushes to Pages.
+That was just the suggested workflow from GitHub, I only had to update the Hugo
+version, which you may need to do as well. It's somewhat self explanatory, but
+it just installs Hugo and its dependencies, builds the site, and pushes to
+Pages.
 
 ### Content
 
-Now we're ready to actually work on the site. Start the dev server and open your browser to [http://localhost:1313](http://localhost:1313)
+Now we're ready to actually work on the site. Start the dev server and open your
+browser to [http://localhost:1313](http://localhost:1313)
 
 ```sh
 hugo serve -D
@@ -146,7 +166,8 @@ hugo serve -D
 hugo new content blog/first-post.md
 ```
 
-This will add a markdown page at `content/blog/first-post.md` with some frontmatter like this:
+This will add a markdown page at `content/blog/first-post.md` with some
+frontmatter like this:
 
 ```;
 ---
@@ -156,13 +177,28 @@ draft: true
 ---
 ```
 
-Now you can write your post beneath that, and remove `draft: true` when you're ready to publish it. My only gripe with that is that there doesn't seem to be a built in way to update the date to match the publish time instead of when you created the file. There is a variable `publishDate` that you can add, it just isn't automated.
+Now you can write your post beneath that, and remove `draft: true` when you're
+ready to publish it. My only gripe with that is that there doesn't seem to be a
+built in way to update the date to match the publish time instead of when you
+created the file. There is a variable `publishDate` that you can add, it just
+isn't automated.
 
-The full list of variables are [here](https://gohugo.io/content-management/front-matter/#front-matter-variables), but some useful ones are:
- - `tags`: Array of tags that will show up at the bottom, and let viewers find related posts
- - `url`: Change the path of a post, could be used if you want to organize content in folders but don't want that to be reflected in the URL. [More here](https://gohugo.io/content-management/urls)
- - `publishDate`: If this is set to the future, the post won't be published until then
+The full list of variables are
+[here](https://gohugo.io/content-management/front-matter/#front-matter-variables),
+but some useful ones are:
 
-Once you're ready to publish, just `git commit` and `git push` to the `main` branch and the site will be deployed by the Action we set up earlier! You'll be able to view it at https://\<username\>.github.io
+- `tags`: Array of tags that will show up at the bottom, and let viewers find
+  related posts
+- `url`: Change the path of a post, could be used if you want to organize
+  content in folders but don't want that to be reflected in the URL.
+  [More here](https://gohugo.io/content-management/urls)
+- `publishDate`: If this is set to the future, the post won't be published until
+  then
 
-If you have questions about anything, the code [is here](https://github.com/stephentuso/stephentuso.github.io), or leave a comment below!
+Once you're ready to publish, just `git commit` and `git push` to the `main`
+branch and the site will be deployed by the Action we set up earlier! You'll be
+able to view it at https://\<username\>.github.io
+
+If you have questions about anything, the code
+[is here](https://github.com/stephentuso/stephentuso.github.io), or leave a
+comment below!
