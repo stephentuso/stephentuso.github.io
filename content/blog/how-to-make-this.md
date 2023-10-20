@@ -53,7 +53,7 @@ git submodule add --depth=1 https://github.com/stephentuso/hugo-PaperMod.git the
 
 There used to be a flag on `hugo new site` to choose config format, but it seems
 to have been taken out. I prefer YAML over the default TOML, so delete
-`hugo.toml` and add the following in a new file `config.yml`, with the
+`hugo.toml` and add the following in a new file `hugo.yaml`, with the
 appropriate values:
 
 ```yaml
