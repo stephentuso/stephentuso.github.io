@@ -1,9 +1,10 @@
 ---
-title: "How to make this site"
+title: "How I made this site"
 summary: Guide for creating a blog with Hugo and GitHub Pages
 slug: hugo-github-pages-blog-tutorial
 aliases:
   - /blog/how-to-make-this
+  - /blog/how-i-made-this
 date: 2023-07-30
 tags:
   - Web
